@@ -14,11 +14,11 @@ solve input = do
   mapM_ (print . sum . (`map` xs) . calBy) [part1, part2]
 
 part1,part2 :: T.Text -> [Int]
-part1 = map digitToInt . T.unpack . T.filter isDigit
-part2 = mapMaybe f . init . T.tails
+part1 = map digitToInt . filter isDigit . T.unpack
+part2 = mapMaybe f . T.tails
   where
-    f t = readMaybe (T.unpack $ T.take 1 t) <|>
-          snd <$> find (\(s,_) -> s `T.isPrefixOf` t) terms
+    f t = readMaybe (take 1 $ T.unpack t) <|>
+          snd <$> find ((`T.isPrefixOf` t) . fst) terms
     terms = zip (T.words "one two three four five six seven eight nine") [1..]
 
 calBy :: (T.Text -> [Int]) -> T.Text -> Int
