@@ -8,15 +8,15 @@ import Text.Read (readMaybe)
 import Advent (defaultAoCOpts,runAoC,mkDay_,AoC(AoCInput))
 import Control.Monad (guard)
 
-import Day1 (solve)
-import Day2 (solve)
-import Day3 (solve)
-import Day4 (solve)
-import Day5 (solve)
-import Day6 (solve)
-import Day7 (solve)
-import Day8 (solve)
-import Day9 (solve)
+import Day01 (solve)
+import Day02 (solve)
+import Day03 (solve)
+import Day04 (solve)
+import Day05 (solve)
+import Day06 (solve)
+import Day07 (solve)
+import Day08 (solve)
+import Day09 (solve)
 import Day10 (solve)
 import Day11 (solve)
 import Day12 (solve)
@@ -36,15 +36,15 @@ import Day25 (solve)
 
 solveFuncs :: [Text -> IO ()]
 solveFuncs =
-  [ Day1.solve,
-    Day2.solve,
-    Day3.solve,
-    Day4.solve,
-    Day5.solve,
-    Day6.solve,
-    Day7.solve,
-    Day8.solve,
-    Day9.solve,
+  [ Day01.solve,
+    Day02.solve,
+    Day03.solve,
+    Day04.solve,
+    Day05.solve,
+    Day06.solve,
+    Day07.solve,
+    Day08.solve,
+    Day09.solve,
     Day10.solve,
     Day11.solve,
     Day12.solve,

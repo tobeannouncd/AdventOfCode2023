@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Day4 (solve) where
+module Day03 (solve) where
 
 import qualified Data.Text as T
 

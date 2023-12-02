@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Day1 (solve) where
+module Day01 (solve) where
 
 import qualified Data.Text as T
 import Data.Char (isDigit, digitToInt)

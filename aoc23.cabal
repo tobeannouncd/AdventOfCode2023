@@ -25,7 +25,15 @@ source-repository head
 
 library
   exposed-modules:
-      Day1
+      Day01
+      Day02
+      Day03
+      Day04
+      Day05
+      Day06
+      Day07
+      Day08
+      Day09
       Day10
       Day11
       Day12
@@ -36,20 +44,12 @@ library
       Day17
       Day18
       Day19
-      Day2
       Day20
       Day21
       Day22
       Day23
       Day24
       Day25
-      Day3
-      Day4
-      Day5
-      Day6
-      Day7
-      Day8
-      Day9
   other-modules:
       Paths_aoc23
   autogen-modules:
