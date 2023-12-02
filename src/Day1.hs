@@ -9,8 +9,9 @@ import Control.Applicative ((<|>))
 import Text.Read (readMaybe)
 
 solve :: T.Text -> IO ()
-solve input = print (sum $ map calVal $ T.lines input)
-  >> print (sum $ map calVal' $ T.lines input)
+solve input = do
+  print (sum $ map calVal  $ T.lines input)
+  print (sum $ map calVal' $ T.lines input)
 
 calVal :: T.Text -> Int
 calVal line = 10 * head digits + last digits
