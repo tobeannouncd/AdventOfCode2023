@@ -2,21 +2,20 @@
 module Day1 (solve) where
 
 import qualified Data.Text as T
-import Data.Char (isDigit, digitToInt)
+import Data.Char (isDigit)
 import Data.List (find)
 import Data.Maybe (mapMaybe)
 import Control.Applicative ((<|>))
 import Text.Read (readMaybe)
 
 solve :: T.Text -> IO ()
-solve input = do
-  print (sum $ map calVal  $ T.lines input)
-  print (sum $ map calVal' $ T.lines input)
+solve input = mapM_ (\f -> print . sum $ map f $ T.lines input) 
+                [calVal, calVal']
 
 calVal :: T.Text -> Int
-calVal line = 10 * head digits + last digits
+calVal line = read [T.head digits, T.last digits]
   where
-    digits = map digitToInt . T.unpack $ T.filter isDigit line
+    digits = T.filter isDigit line
 
 calVal' :: T.Text -> Int
 calVal' line = 10 * head digs + last digs

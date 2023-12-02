@@ -1,15 +1,22 @@
 module Main (main) where
 
-import Advent ( defaultAoCOpts, runAoC, mkDay_, AoC(AoCInput) )
-import Control.Monad (guard)
 import Data.Text (Text)
-import Data.Time
-  ( LocalTime (localDay),
-    ZonedTime (zonedTimeToLocalTime),
-    getZonedTime,
-    toGregorian,
-  )
+import Data.Time (LocalTime (..),ZonedTime (..),getZonedTime,toGregorian)
+import System.Environment (getArgs)
+import Text.Read (readMaybe)
+
+import Advent (defaultAoCOpts,runAoC,mkDay_,AoC(AoCInput))
+import Control.Monad (guard)
+
 import Day1 (solve)
+import Day2 (solve)
+import Day3 (solve)
+import Day4 (solve)
+import Day5 (solve)
+import Day6 (solve)
+import Day7 (solve)
+import Day8 (solve)
+import Day9 (solve)
 import Day10 (solve)
 import Day11 (solve)
 import Day12 (solve)
@@ -20,22 +27,12 @@ import Day16 (solve)
 import Day17 (solve)
 import Day18 (solve)
 import Day19 (solve)
-import Day2 (solve)
 import Day20 (solve)
 import Day21 (solve)
 import Day22 (solve)
 import Day23 (solve)
 import Day24 (solve)
 import Day25 (solve)
-import Day3 (solve)
-import Day4 (solve)
-import Day5 (solve)
-import Day6 (solve)
-import Day7 (solve)
-import Day8 (solve)
-import Day9 (solve)
-import System.Environment (getArgs)
-import Text.Read (readMaybe)
 
 solveFuncs :: [Text -> IO ()]
 solveFuncs =
@@ -68,11 +65,9 @@ solveFuncs =
 
 currentDay :: IO Int
 currentDay = do
-  t <- getZonedTime
-  let d = localDay $ zonedTimeToLocalTime t
-      (_, _, d') = toGregorian d
+  t <- localDay . zonedTimeToLocalTime <$> getZonedTime
+  let (_, _, d') = toGregorian t
   return d'
-
 
 puzzleInput :: String -> Int -> IO Text
 puzzleInput session day =
