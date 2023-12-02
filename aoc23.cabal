@@ -50,6 +50,7 @@ library
       Day23
       Day24
       Day25
+      TextParsing
   other-modules:
       Paths_aoc23
   autogen-modules:
@@ -60,6 +61,8 @@ library
   build-depends:
       advent-of-code-api
     , base >=4.7 && <5
+    , containers
+    , parsec
     , text
     , time
     , tz
@@ -78,6 +81,8 @@ executable aoc23-exe
       advent-of-code-api
     , aoc23
     , base >=4.7 && <5
+    , containers
+    , parsec
     , text
     , time
     , tz
@@ -97,7 +102,9 @@ test-suite aoc23-test
       advent-of-code-api
     , aoc23
     , base >=4.7 && <5
+    , containers
     , hspec
+    , parsec
     , text
     , time
     , tz

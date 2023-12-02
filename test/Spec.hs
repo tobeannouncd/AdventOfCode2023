@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Test.Hspec ( hspec, describe, it, shouldBe )
 import Day01 (solve)
-import Data.Foldable (for_)
 
 main :: IO ()
 main = hspec $ do
@@ -29,6 +28,6 @@ main = hspec $ do
           it (name ++ " matches the sample") $ do
             itm (Day01.solve txt) `shouldBe` expected
         
-        in for_ cases test
+        in mapM_ test cases
 
 

@@ -2,6 +2,7 @@ module Main (main) where
 
 import System.Environment (getArgs)
 
+import Data.Bifunctor (Bifunctor(bimap))
 import Data.Text (Text)
 import Text.Read (readMaybe)
 
@@ -36,34 +37,37 @@ import Day23 (solve)
 import Day24 (solve)
 import Day25 (solve)
 
-solveFuncs :: [Text -> String]
+solveFuncs :: [Text -> (String,String)]
 solveFuncs = 
-  [ show . Day01.solve,
-    show . Day02.solve,
-    show . Day03.solve,
-    show . Day04.solve,
-    show . Day05.solve,
-    show . Day06.solve,
-    show . Day07.solve,
-    show . Day08.solve,
-    show . Day09.solve,
-    show . Day10.solve,
-    show . Day11.solve,
-    show . Day12.solve,
-    show . Day13.solve,
-    show . Day14.solve,
-    show . Day15.solve,
-    show . Day16.solve,
-    show . Day17.solve,
-    show . Day18.solve,
-    show . Day19.solve,
-    show . Day20.solve,
-    show . Day21.solve,
-    show . Day22.solve,
-    show . Day23.solve,
-    show . Day24.solve,
-    show . Day25.solve
+  [ showBoth . Day01.solve,
+    showBoth . Day02.solve,
+    showBoth . Day03.solve,
+    showBoth . Day04.solve,
+    showBoth . Day05.solve,
+    showBoth . Day06.solve,
+    showBoth . Day07.solve,
+    showBoth . Day08.solve,
+    showBoth . Day09.solve,
+    showBoth . Day10.solve,
+    showBoth . Day11.solve,
+    showBoth . Day12.solve,
+    showBoth . Day13.solve,
+    showBoth . Day14.solve,
+    showBoth . Day15.solve,
+    showBoth . Day16.solve,
+    showBoth . Day17.solve,
+    showBoth . Day18.solve,
+    showBoth . Day19.solve,
+    showBoth . Day20.solve,
+    showBoth . Day21.solve,
+    showBoth . Day22.solve,
+    showBoth . Day23.solve,
+    showBoth . Day24.solve,
+    showBoth . Day25.solve
   ]
+
+showBoth :: (Show a, Show b) => (a, b) -> (String, String)
+showBoth = bimap show show
 
 est :: IO TZ
 est = loadSystemTZ "America/New_York"
@@ -85,6 +89,13 @@ puzzleInput :: String -> Int -> IO Text
 puzzleInput session day = either (error . show) id
   <$> runAoC (defaultAoCOpts 2023 session) (AoCInput (mkDay_ (toInteger day)))
 
+printSolution :: (String,String) -> IO ()
+printSolution (part1, part2) = printSol '1' part1 >> printSol '2' part2
+  where
+    printSol n s = do
+      putStrLn $ "\nPart " ++ n : "\n======"
+      putStrLn s
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -93,4 +104,4 @@ main = do
           _   -> currentDay
   session <- readFile ".session"
   input <- puzzleInput session day
-  putStrLn $ (solveFuncs !! (day - 1)) input
+  printSolution $ (solveFuncs !! (day - 1)) input

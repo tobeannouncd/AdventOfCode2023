@@ -25,6 +25,8 @@ dependencies:
 - time
 - text
 - tz
+- containers
+- parsec
 
 ghc-options:
 - -Wall
