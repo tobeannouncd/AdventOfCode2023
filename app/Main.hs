@@ -1,12 +1,14 @@
 module Main (main) where
 
-import Data.Text (Text)
-import Data.Time (LocalTime (..),ZonedTime (..),getZonedTime,toGregorian)
 import System.Environment (getArgs)
+
+import Data.Text (Text)
 import Text.Read (readMaybe)
 
-import Advent (defaultAoCOpts,runAoC,mkDay_,AoC(AoCInput))
-import Control.Monad (guard)
+import Data.Time (LocalTime (..), getZonedTime, toGregorian, zonedTimeToUTC)
+import Data.Time.Zones (utcToLocalTimeTZ, loadSystemTZ, TZ)
+
+import Advent (defaultAoCOpts, runAoC, mkDay_, AoC(AoCInput))
 
 import Day01 (solve)
 import Day02 (solve)
@@ -63,25 +65,32 @@ solveFuncs =
     Day25.solve
   ]
 
+est :: IO TZ
+est = loadSystemTZ "America/New_York"
+
 currentDay :: IO Int
 currentDay = do
-  t <- localDay . zonedTimeToLocalTime <$> getZonedTime
+  tz <- est
+  t <- localDay . utcToLocalTimeTZ tz . zonedTimeToUTC <$> getZonedTime
   let (_, _, d') = toGregorian t
-  return d'
+  return $ min d' 25
+
+_checkTime :: IO ()
+_checkTime = do
+  tz <- est
+  nowUTC <- zonedTimeToUTC <$> getZonedTime
+  print $ utcToLocalTimeTZ tz nowUTC
 
 puzzleInput :: String -> Int -> IO Text
-puzzleInput session day =
-    either (error . show) id <$> runAoC opts (AoCInput (mkDay_ (toInteger day)))
-  where
-    opts = defaultAoCOpts 2023 session
+puzzleInput session day = either (error . show) id
+  <$> runAoC (defaultAoCOpts 2023 session) (AoCInput (mkDay_ (toInteger day)))
 
 main :: IO ()
 main = do
   args <- getArgs
   day <- case args of
-          [x] -> maybe currentDay return $ readMaybe x
+          [x] -> maybe currentDay (return . max 1 . min 25) $ readMaybe x
           _   -> currentDay
-  guard $ day > 0 && day < 26
   session <- readFile ".session"
   input <- puzzleInput session day
   (solveFuncs !! (day - 1)) input

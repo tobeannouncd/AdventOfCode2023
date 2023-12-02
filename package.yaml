@@ -24,6 +24,7 @@ dependencies:
 - advent-of-code-api
 - time
 - text
+- tz
 
 ghc-options:
 - -Wall

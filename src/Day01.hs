@@ -5,7 +5,7 @@ import qualified Data.Text as T
 import Data.Char (isDigit, digitToInt)
 import Data.List (find)
 import Data.Maybe (mapMaybe)
-import Control.Applicative ((<|>))
+import Control.Applicative ((<|>), liftA2)
 import Text.Read (readMaybe)
 
 solve :: T.Text -> IO ()
@@ -22,6 +22,4 @@ part2 = mapMaybe f . T.tails
     terms = zip (T.words "one two three four five six seven eight nine") [1..]
 
 calBy :: (T.Text -> [Int]) -> T.Text -> Int
-calBy f line = 10*head digits + last digits
-  where
-    digits = f line
+calBy f = liftA2 (+) ((10*) . head) last . f
