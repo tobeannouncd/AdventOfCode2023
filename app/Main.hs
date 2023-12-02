@@ -36,33 +36,33 @@ import Day23 (solve)
 import Day24 (solve)
 import Day25 (solve)
 
-solveFuncs :: [Text -> IO ()]
-solveFuncs =
-  [ Day01.solve,
-    Day02.solve,
-    Day03.solve,
-    Day04.solve,
-    Day05.solve,
-    Day06.solve,
-    Day07.solve,
-    Day08.solve,
-    Day09.solve,
-    Day10.solve,
-    Day11.solve,
-    Day12.solve,
-    Day13.solve,
-    Day14.solve,
-    Day15.solve,
-    Day16.solve,
-    Day17.solve,
-    Day18.solve,
-    Day19.solve,
-    Day20.solve,
-    Day21.solve,
-    Day22.solve,
-    Day23.solve,
-    Day24.solve,
-    Day25.solve
+solveFuncs :: [Text -> String]
+solveFuncs = 
+  [ show . Day01.solve,
+    show . Day02.solve,
+    show . Day03.solve,
+    show . Day04.solve,
+    show . Day05.solve,
+    show . Day06.solve,
+    show . Day07.solve,
+    show . Day08.solve,
+    show . Day09.solve,
+    show . Day10.solve,
+    show . Day11.solve,
+    show . Day12.solve,
+    show . Day13.solve,
+    show . Day14.solve,
+    show . Day15.solve,
+    show . Day16.solve,
+    show . Day17.solve,
+    show . Day18.solve,
+    show . Day19.solve,
+    show . Day20.solve,
+    show . Day21.solve,
+    show . Day22.solve,
+    show . Day23.solve,
+    show . Day24.solve,
+    show . Day25.solve
   ]
 
 est :: IO TZ
@@ -93,4 +93,4 @@ main = do
           _   -> currentDay
   session <- readFile ".session"
   input <- puzzleInput session day
-  (solveFuncs !! (day - 1)) input
+  putStrLn $ (solveFuncs !! (day - 1)) input

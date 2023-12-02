@@ -97,6 +97,7 @@ test-suite aoc23-test
       advent-of-code-api
     , aoc23
     , base >=4.7 && <5
+    , hspec
     , text
     , time
     , tz

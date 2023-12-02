@@ -8,10 +8,12 @@ import Data.Maybe (mapMaybe)
 import Control.Applicative ((<|>), liftA2)
 import Text.Read (readMaybe)
 
-solve :: T.Text -> IO ()
-solve input = do
-  let xs = T.lines input
-  mapM_ (print . sum . (`map` xs) . calBy) [part1, part2]
+solve :: T.Text -> (Int,Int)
+solve input = (f part1, f part2)
+  where
+    xs = T.lines input
+    f g = sum $ map (calBy g) xs
+    
 
 part1,part2 :: T.Text -> [Int]
 part1 = map digitToInt . filter isDigit . T.unpack
