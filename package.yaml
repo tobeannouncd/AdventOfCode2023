@@ -27,6 +27,7 @@ dependencies:
 - tz
 - containers
 - parsec
+- array
 
 ghc-options:
 - -Wall

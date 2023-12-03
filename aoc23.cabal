@@ -60,6 +60,7 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       advent-of-code-api
+    , array
     , base >=4.7 && <5
     , containers
     , parsec
@@ -80,6 +81,7 @@ executable aoc23-exe
   build-depends:
       advent-of-code-api
     , aoc23
+    , array
     , base >=4.7 && <5
     , containers
     , parsec
@@ -101,6 +103,7 @@ test-suite aoc23-test
   build-depends:
       advent-of-code-api
     , aoc23
+    , array
     , base >=4.7 && <5
     , containers
     , hspec
