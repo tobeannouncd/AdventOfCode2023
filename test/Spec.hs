@@ -60,6 +60,10 @@ main = hspec $ do
           \...$.*....\n\
           \.664.598.."
 
-    it "Part 1" $ do
-      fst (Day03.solve example) `shouldBe` 4361
+        (ans1, ans2) = Day03.solve example
+
+    it "Part 1 matches the sample" $ do
+      ans1 `shouldBe` 4361
+    it "Part 2 matches the sample" $ do
+      ans2 `shouldBe` 467835
       
