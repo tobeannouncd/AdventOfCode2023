@@ -6,7 +6,9 @@ import IntervalTree ( TreeD, empty, insert, lookupTree, overlap )
 import Data.Text.Read (decimal)
 import Control.Arrow ((&&&))
 
-mkTree :: Integral k => T.Text -> TreeD k (k -> k)
+type Tree = TreeD Int (Int -> Int)
+
+mkTree :: T.Text -> Tree
 mkTree input
   | (_:xs) <- T.lines input
   = foldr (uncurry insert . parse) empty xs
@@ -17,14 +19,14 @@ mkTree input
     parse _ = error "cannot parse line"
 mkTree _ = error "cannot parse tree"
 
-parseInput :: (Integral b, Integral k) => T.Text -> ([TreeD k (k -> k)], [b])
+parseInput :: T.Text -> ([Tree], [Int])
 parseInput input
   | (a:b) <- T.splitOn "\n\n" input
   , Right seeds <- traverse (fmap fst . decimal) (drop 1 $ T.words a)
   = (map mkTree b, seeds)
 parseInput _ = error "cannot parse seeds"
 
-part1 :: (Ord c, Foldable t) => (t (TreeD c (c -> c)), [c]) -> c
+part1 :: ([Tree], [Int]) -> Int
 part1 (trees, seeds) = minimum . map (\x -> foldl f x trees) $ seeds
   where
     f x = maybe x ($ x) . lookupTree x
@@ -32,7 +34,7 @@ part1 (trees, seeds) = minimum . map (\x -> foldl f x trees) $ seeds
 solve :: T.Text -> (Int,Int)
 solve = (part1 &&& part2) . parseInput
 
-part2 :: (Foldable t, Ord b, Num b) => (t (TreeD b (b -> b)), [b]) -> b
+part2 :: ([Tree], [Int]) -> Int
 part2 (trees, seeds) = 
     fst . minimum . foldl (\ps -> (ps >>=) . f) (mkPairs seeds) $ trees
   where
