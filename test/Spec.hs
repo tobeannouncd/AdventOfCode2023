@@ -3,6 +3,8 @@ import Test.Hspec ( hspec, describe, it, shouldBe )
 import Day01 (solve)
 import Day02 (solve)
 import Day03 (solve)
+import Day04 (solve)
+import Day05 (solve)
 
 main :: IO ()
 main = hspec $ do
@@ -66,4 +68,62 @@ main = hspec $ do
       ans1 `shouldBe` 4361
     it "Part 2 matches the sample" $ do
       ans2 `shouldBe` 467835
-      
+  
+  describe "Day 4" $ do
+    let example = 
+          "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53\n\
+          \Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19\n\
+          \Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1\n\
+          \Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83\n\
+          \Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36\n\
+          \Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"
+
+        (ans1,ans2) = Day04.solve example
+
+    it "Part 1 matches the sample" $ do
+      ans1 `shouldBe` 13
+    it "Part 2 matches the sample" $ do
+      ans2 `shouldBe` 30
+
+  describe "Day 5" $ do
+    let example = 
+          "seeds: 79 14 55 13\n\
+          \\n\
+          \seed-to-soil map:\n\
+          \50 98 2\n\
+          \52 50 48\n\
+          \\n\
+          \soil-to-fertilizer map:\n\
+          \0 15 37\n\
+          \37 52 2\n\
+          \39 0 15\n\
+          \\n\
+          \fertilizer-to-water map:\n\
+          \49 53 8\n\
+          \0 11 42\n\
+          \42 0 7\n\
+          \57 7 4\n\
+          \\n\
+          \water-to-light map:\n\
+          \88 18 7\n\
+          \18 25 70\n\
+          \\n\
+          \light-to-temperature map:\n\
+          \45 77 23\n\
+          \81 45 19\n\
+          \68 64 13\n\
+          \\n\
+          \temperature-to-humidity map:\n\
+          \0 69 1\n\
+          \1 0 69\n\
+          \\n\
+          \humidity-to-location map:\n\
+          \60 56 37\n\
+          \56 93 4"
+        
+        (ans1, ans2) = Day05.solve example
+    
+    it "Part 1 matches the sample" $ do
+      ans1 `shouldBe` 35
+    it "Part 2 matches the sample" $ do
+      ans2 `shouldBe` 46

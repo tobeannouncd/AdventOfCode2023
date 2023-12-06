@@ -5,12 +5,7 @@ import qualified Data.Text as T
 import Control.Arrow (Arrow(..))
 import Data.Text.Read (decimal)
 
-data MapItem
-  = MapItem
-  { dst :: Int
-  , src :: Int
-  , len :: Int
-  } deriving (Show,Eq)
+data MapItem = MapItem Int Int Int
 
 solve :: T.Text -> (Int,Int)
 solve input = (part1 maps &&& part2 maps) seeds
@@ -43,17 +38,16 @@ mapRange x (MapItem d s l:xs)
 part2 :: Foldable t => t [MapItem] -> [Int] -> Int
 part2 maps seeds = fst . minimum . foldl f (toPairs seeds) $ maps
   where
-    f xs ms = xs >>= (`mapRange'` ms)
+    f xs ms = xs >>= (`mapRanges` ms)
     toPairs (x:y:xs) = (x,y) : toPairs xs
     toPairs _ = []
 
-mapRange' :: (Int, Int) -> [MapItem] -> [(Int, Int)]
-mapRange' x [] = [x]
-mapRange' (rs,rl) (MapItem d s l:ms)
-  | rs <= s + l && s < rs + rl = pre ++ cur ++ suf
-  | otherwise = mapRange' (rs,rl) ms
+mapRanges :: (Int, Int) -> [MapItem] -> [(Int, Int)]
+mapRanges x [] = [x]
+mapRanges (rs,rl) (MapItem d s l:ms)
+  | rs < s + l && s < rs + rl = pre ++ cur ++ suf
+  | otherwise = mapRanges (rs,rl) ms
   where
-    pre = if rs < s then mapRange' (rs,s-rs) ms else []
+    pre = if rs < s then mapRanges (rs,s-rs) ms else []
     cur = [(d + max 0 (rs-s), min rl (l - max 0 (rs-s)))]
-    suf = if s+l < rs + rl then mapRange' (s+l, rs+rl-s-l) ms else []
-
+    suf = if s+l < rs+rl then mapRanges (s+l, rs+rl-s-l) ms else []
