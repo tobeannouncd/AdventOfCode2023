@@ -36,9 +36,7 @@ countWays time record = fromMaybe 0 $ do
 
 
 part2 :: [(Int,Int)] -> Int
-part2 inp = countWays time record
+part2 inp = countWays (con times) (con records)
   where
     (times,records) = unzip inp
-    time = con times
-    record = con records
     con = read . concatMap show
