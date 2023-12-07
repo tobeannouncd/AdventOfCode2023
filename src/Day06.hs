@@ -1,42 +1,46 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Day06 (solve) where
 
+import Data.Text (Text)
+import Control.Arrow ( Arrow((&&&)) )
 import qualified Data.Text as T
-import Data.Text.Read (decimal)
-import Control.Arrow ((&&&))
-import Data.Maybe (fromMaybe)
-import Data.List (find)
+import Utils (readInts)
 
-solve :: T.Text -> (Int,Int)
+type Output = (Int,Int)
+
+solve :: Text -> Output
 solve = (part1 &&& part2) . parse
 
-parse :: T.Text -> [(Int,Int)]
-parse input
-  | [t,d] <- T.lines input
-  = zip (ints t) (ints d)
-parse _ = error "cannot parse"
-
-ints :: Integral a => T.Text -> [a]
-ints t
-  | T.null t = []
-  | otherwise = case decimal t of
-      Left _ -> ints (T.tail t)
-      Right (x,t') -> x : ints t'
-
 part1 :: [(Int, Int)] -> Int
-part1 = product . map (uncurry countWays)
+part1 = product . map (uncurry ways)
 
-countWays :: Int -> Int -> Int
-countWays time record = fromMaybe 0 $ do
-    fwd <- f [0..time]
-    rev <- f [time, time-1 .. 0]
-    return $ rev - fwd + 1
+part2 :: (Integral p, Read p, Show a) => [(a, a)] -> p
+part2 games = ways (conc ts) (conc rs)
   where
-    f = find (\s -> s * (time-s) > record)
+    (ts, rs) = unzip games
+    conc = read . concatMap show
 
+-- When released at t ticks, a distance of d can be reached in a T tick race.
+-- d(t) = t * (T - t)
+-- d(t) > R
+-- t * (T - t) > R
+-- t^2 - T*t + R < 0
+-- t > (T - sqrt (T*T - 4*R)) / 2
+-- t = 1 + floor tRecord
+-- interval from t to T-t
+-- [1 + floor tR, T - 1 - floor tR]
+-- interval size = hi - lo + 1
+-- size = T - 1 - floor tR - 1 - floor tR + 1
 
-part2 :: [(Int,Int)] -> Int
-part2 inp = countWays (con times) (con records)
+ways :: (Integral p, Integral a) => a -> p -> a
+ways time dist = time - 1 - 2 * floor tRecord
   where
-    (times,records) = unzip inp
-    con = read . concatMap show
+    tRecord = (t - sqrt (t*t - 4*d)) / 2 :: Double
+    t = fromIntegral time
+    d = fromIntegral dist
+
+
+parse :: Integral b => Text -> [(b, b)]
+parse input
+  | [a,b] <- map readInts $ T.lines input
+  = zip a b
+parse _ = undefined
