@@ -28,7 +28,7 @@ part1 (seeds, trees) = minimum . map (\s -> foldl getVal s trees) $ seeds
 
 part2 :: (Foldable t, Integral a) => ([a], t (IntervalMap a (a -> a))) -> a
 part2 (seeds, trees) = minimum . map low
-                     . foldl (\ps t -> merge . sort $ ps >>= translate t) pairs
+                     . foldl (\ps -> merge . sort . (ps >>=) . translate) pairs
                      $ trees
   where
     pairs = go seeds
