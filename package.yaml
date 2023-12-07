@@ -1,10 +1,10 @@
 name:                aoc23
 version:             0.1.0.0
 github:              "tobeannouncd/AdventOfCode2023"
-license:             BSD-3-Clause
+license:             MIT
 author:              "tobeannouncd"
 maintainer:          "wzrds3@gmail.com"
-copyright:           "2023 tobeannouncd"
+copyright:           "2023 Tyler Aas"
 
 extra-source-files:
 - README.md
@@ -26,6 +26,8 @@ dependencies:
 - parsec
 - array
 - fingertree
+
+language: GHC2021
 
 ghc-options:
 - -Wall

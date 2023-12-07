@@ -1,4 +1,4 @@
-cabal-version: 2.2
+cabal-version: 1.12
 
 -- This file has been generated from package.yaml by hpack version 0.35.2.
 --
@@ -11,8 +11,8 @@ homepage:       https://github.com/tobeannouncd/AdventOfCode2023#readme
 bug-reports:    https://github.com/tobeannouncd/AdventOfCode2023/issues
 author:         tobeannouncd
 maintainer:     wzrds3@gmail.com
-copyright:      2023 tobeannouncd
-license:        BSD-3-Clause
+copyright:      2023 Tyler Aas
+license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
@@ -37,8 +37,6 @@ library
       Utils
   other-modules:
       Paths_aoc23
-  autogen-modules:
-      Paths_aoc23
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -49,13 +47,11 @@ library
     , fingertree
     , parsec
     , text
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable aoc23-exe
   main-is: Main.hs
   other-modules:
-      Paths_aoc23
-  autogen-modules:
       Paths_aoc23
   hs-source-dirs:
       app
@@ -71,14 +67,12 @@ executable aoc23-exe
     , text
     , time
     , tz
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite aoc23-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_aoc23
-  autogen-modules:
       Paths_aoc23
   hs-source-dirs:
       test
@@ -92,4 +86,4 @@ test-suite aoc23-test
     , hspec
     , parsec
     , text
-  default-language: Haskell2010
+  default-language: GHC2021
