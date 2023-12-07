@@ -14,6 +14,7 @@ import Data.IntervalMap.FingerTree
 import qualified Data.Text as T
 import Data.Text.Read (decimal)
 import Control.Arrow ( Arrow((&&&)) )
+import Data.List (sort)
 
 solve :: Text -> (Int,Int)
 solve = (part1 &&& part2) . parseInput
@@ -26,12 +27,20 @@ part1 (seeds, trees) = minimum . map (\s -> foldl getVal s trees) $ seeds
       ((_,f):_) -> f s
 
 part2 :: (Foldable t, Integral a) => ([a], t (IntervalMap a (a -> a))) -> a
-part2 (seeds, trees) = minimum . map low . foldl ((. translate) . (>>=)) pairs $ trees
+part2 (seeds, trees) = minimum . map low
+                     . foldl (\ps t -> merge . sort $ ps >>= translate t) pairs
+                     $ trees
   where
     pairs = go seeds
     go [] = []
     go (a:b:xs) = Interval a (a + b - 1) : go xs
     go _ = undefined
+
+merge :: Ord a => [Interval a] -> [Interval a]
+merge (x:y:xs)
+  | high x < low y = x : merge (y:xs)
+  | otherwise = merge (Interval (low x) (max (high x) (high y)):xs)
+merge xs = xs
 
 translate :: Integral a => IntervalMap a (a -> a) -> Interval a -> [Interval a]
 translate tree i = uncurry (++) $ foldr overlap ([], [i]) $ intersections i tree
