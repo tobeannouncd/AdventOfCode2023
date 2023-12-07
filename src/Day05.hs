@@ -14,7 +14,7 @@ import Data.IntervalMap.FingerTree
 import qualified Data.Text as T
 import Data.Text.Read (decimal)
 import Control.Arrow ( Arrow((&&&)) )
-import Data.List (sort)
+import Data.List (sort, foldl')
 
 solve :: Text -> (Int,Int)
 solve = (part1 &&& part2) . parseInput
@@ -28,7 +28,7 @@ part1 (seeds, trees) = minimum . map (\s -> foldl getVal s trees) $ seeds
 
 part2 :: (Foldable t, Integral a) => ([a], t (IntervalMap a (a -> a))) -> a
 part2 (seeds, trees) = minimum . map low
-                     . foldl (\ps -> merge . sort . (ps >>=) . translate) pairs
+                     . foldl' (\ps -> merge . sort . (ps >>=) . translate) pairs
                      $ trees
   where
     pairs = go seeds
