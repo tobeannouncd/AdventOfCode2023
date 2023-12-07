@@ -17,25 +17,6 @@ import Day03 (solve)
 import Day04 (solve)
 import Day05 (solve)
 import Day06 (solve)
-import Day07 (solve)
-import Day08 (solve)
-import Day09 (solve)
-import Day10 (solve)
-import Day11 (solve)
-import Day12 (solve)
-import Day13 (solve)
-import Day14 (solve)
-import Day15 (solve)
-import Day16 (solve)
-import Day17 (solve)
-import Day18 (solve)
-import Day19 (solve)
-import Day20 (solve)
-import Day21 (solve)
-import Day22 (solve)
-import Day23 (solve)
-import Day24 (solve)
-import Day25 (solve)
 
 solveFuncs :: [Text -> (String,String)]
 solveFuncs = 
@@ -44,27 +25,7 @@ solveFuncs =
     showBoth . Day03.solve,
     showBoth . Day04.solve,
     showBoth . Day05.solve,
-    showBoth . Day06.solve,
-    showBoth . Day07.solve,
-    showBoth . Day08.solve,
-    showBoth . Day09.solve,
-    showBoth . Day10.solve,
-    showBoth . Day11.solve,
-    showBoth . Day12.solve,
-    showBoth . Day13.solve,
-    showBoth . Day14.solve,
-    showBoth . Day15.solve,
-    showBoth . Day16.solve,
-    showBoth . Day17.solve,
-    showBoth . Day18.solve,
-    showBoth . Day19.solve,
-    showBoth . Day20.solve,
-    showBoth . Day21.solve,
-    showBoth . Day22.solve,
-    showBoth . Day23.solve,
-    showBoth . Day24.solve,
-    showBoth . Day25.solve
-  ]
+    showBoth . Day06.solve ]
 
 showBoth :: (Show a, Show b) => (a, b) -> (String, String)
 showBoth = bimap show show
