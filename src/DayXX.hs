@@ -5,4 +5,4 @@ import Data.Text (Text)
 type Output = ((),())
 
 solve :: Text -> Output
-solve = undefined  
+solve = undefined

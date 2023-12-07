@@ -36,14 +36,14 @@ part2 (seeds, trees) = minimum . map low . foldl ((. translate) . (>>=)) pairs $
 translate :: Integral a => IntervalMap a (a -> a) -> Interval a -> [Interval a]
 translate tree i = uncurry (++) $ foldr overlap ([], [i]) $ intersections i tree
 
-overlap :: Integral a => (Interval a, a -> a) 
-                      -> ([Interval a],[Interval a]) 
+overlap :: Integral a => (Interval a, a -> a)
+                      -> ([Interval a],[Interval a])
                       -> ([Interval a],[Interval a])
 overlap (Interval a b, f) (done, unmatched) = foldr check (done,[]) unmatched
   where
     check i@(Interval a' b') (gd, bd)
-      | (not . valid) curr = (gd, i:bd)
-      | otherwise = (curr:gd, filter valid [prev,post] ++ bd)
+      | valid curr = (curr:gd, filter valid [prev,post] ++ bd)
+      | otherwise = (gd, i:bd)
       where
         prev = Interval a' (min b' (a-1))
         curr = Interval (f $ max a a') (f $ min b b')

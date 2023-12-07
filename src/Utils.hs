@@ -1,6 +1,6 @@
 module Utils
   ( readInts,
-    paragraphs ) 
+    paragraphs )
   where
 
 import qualified Data.Text as T

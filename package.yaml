@@ -1,10 +1,10 @@
 name:                aoc23
 version:             0.1.0.0
-github:              "githubuser/aoc23"
+github:              "tobeannouncd/AdventOfCode2023"
 license:             BSD-3-Clause
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2023 Author name here"
+author:              "tobeannouncd"
+maintainer:          "wzrds3@gmail.com"
+copyright:           "2023 tobeannouncd"
 
 extra-source-files:
 - README.md
@@ -17,14 +17,11 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/aoc23#readme>
+description:         Please see the README on GitHub at <https://github.com/tobeannouncd/AdventOfCode2023#readme>
 
 dependencies:
 - base >= 4.7 && < 5
-- advent-of-code-api
-- time
 - text
-- tz
 - containers
 - parsec
 - array
@@ -54,6 +51,9 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - aoc23
+    - advent-of-code-api
+    - time
+    - tz
 
 tests:
   aoc23-test:

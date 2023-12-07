@@ -51,7 +51,7 @@ part2 (vals, m) = sum
       [ v
       | (v, pts) <- vals
       , (not . null) $ intersect pts adj ]
-      
+
 
 part1 :: ([Val], Map (Int, Int) Char) -> Int
 part1 (vals, m) = sum . map fst $ filter (f.snd) vals

@@ -13,7 +13,7 @@ solve input = (f part1, f part2)
   where
     xs = T.lines input
     f g = sum $ map (calBy g) xs
-    
+
 
 part1,part2 :: T.Text -> [Int]
 part1 = map digitToInt . filter isDigit . T.unpack

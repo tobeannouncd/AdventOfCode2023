@@ -16,7 +16,7 @@ solve :: Text -> (Int,Int)
 solve = (part1 &&& part2) . map parseLine . T.lines
 
 part1 :: [(Int, [Counter])] -> Int
-part1 = sum . map fst . filter (all valid . snd) 
+part1 = sum . map fst . filter (all valid . snd)
   where
     inv = fromList
       [ ("red", 12)
