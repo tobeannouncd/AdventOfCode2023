@@ -50,7 +50,6 @@ library
       Day23
       Day24
       Day25
-      IntervalTree
       TextParsing
   other-modules:
       Paths_aoc23

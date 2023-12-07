@@ -5,6 +5,7 @@ import Day02 (solve)
 import Day03 (solve)
 import Day04 (solve)
 import Day05 (solve)
+import Day06 (solve)
 
 main :: IO ()
 main = hspec $ do
@@ -127,3 +128,14 @@ main = hspec $ do
       ans1 `shouldBe` 35
     it "Part 2 matches the sample" $ do
       ans2 `shouldBe` 46
+  
+  describe "Day 6" $ do
+    let example =
+          "Time:      7  15   30\n\
+          \Distance:  9  40  200"
+        (ans1, ans2) = Day06.solve example
+    
+    it "Part 1 matches the sample" $ do
+      ans1 `shouldBe` 288
+    it "Part 2 matches the sample" $ do
+      ans2 `shouldBe` 71503
