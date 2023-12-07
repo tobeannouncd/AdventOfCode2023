@@ -2,8 +2,8 @@ module Main (main) where
 
 import System.Environment (getArgs)
 
-import Data.Bifunctor (Bifunctor(bimap))
 import Data.Text (Text)
+import Data.Typeable (cast, Typeable)
 import Text.Read (readMaybe)
 
 import Data.Time (LocalTime (..), getZonedTime, toGregorian, zonedTimeToUTC)
@@ -18,7 +18,7 @@ import Day04 (solve)
 import Day05 (solve)
 import Day06 (solve)
 
-solveFuncs :: [Text -> (String,String)]
+solveFuncs :: [Text -> (String, String)]
 solveFuncs = 
   [ showBoth . Day01.solve,
     showBoth . Day02.solve,
@@ -27,8 +27,14 @@ solveFuncs =
     showBoth . Day05.solve,
     showBoth . Day06.solve ]
 
-showBoth :: (Show a, Show b) => (a, b) -> (String, String)
-showBoth = bimap show show
+showBoth :: (Show a1, Show a2, Typeable a1, Typeable a2) 
+         => (a1, a2) -> (String, String)
+showBoth (a,b) = (show_ a, show_ b)
+
+show_ :: (Show a, Typeable a) => a -> String
+show_ x = case cast x of
+            Nothing -> show x
+            Just s  -> s
 
 est :: IO TZ
 est = loadSystemTZ "America/New_York"
@@ -36,9 +42,9 @@ est = loadSystemTZ "America/New_York"
 currentDay :: IO Int
 currentDay = do
   tz <- est
-  t <- localDay . utcToLocalTimeTZ tz . zonedTimeToUTC <$> getZonedTime
-  let (_, _, d') = toGregorian t
-  return $ min d' 25
+  (_,_,d) <- toGregorian . localDay . utcToLocalTimeTZ tz . zonedTimeToUTC 
+    <$> getZonedTime
+  return $ min d 25
 
 _checkTime :: IO ()
 _checkTime = do

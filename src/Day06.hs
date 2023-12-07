@@ -5,15 +5,15 @@ import Control.Arrow ( Arrow((&&&)) )
 import qualified Data.Text as T
 import Utils (readInts)
 
-type Output = (Int,Int)
+type Output = (Integer,Integer)
 
 solve :: Text -> Output
 solve = (part1 &&& part2) . parse
 
-part1 :: [(Int, Int)] -> Int
+part1 :: Integral a => [(a,a)] -> a
 part1 = product . map (uncurry ways)
 
-part2 :: (Integral p, Read p, Show a) => [(a, a)] -> p
+part2 :: (Integral a, Read a, Show a) => [(a, a)] -> a
 part2 games = ways (conc ts) (conc rs)
   where
     (ts, rs) = unzip games
@@ -31,7 +31,7 @@ part2 games = ways (conc ts) (conc rs)
 -- interval size = hi - lo + 1
 -- size = T - 1 - floor tR - 1 - floor tR + 1
 
-ways :: (Integral p, Integral a) => a -> p -> a
+ways :: Integral a => a -> a -> a
 ways time dist = time - 1 - 2 * floor tRecord
   where
     tRecord = (t - sqrt (t*t - 4*d)) / 2 :: Double
