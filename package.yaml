@@ -28,6 +28,7 @@ dependencies:
 - containers
 - parsec
 - array
+- fingertree
 
 ghc-options:
 - -Wall
