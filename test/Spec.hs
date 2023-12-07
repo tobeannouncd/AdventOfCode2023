@@ -6,6 +6,7 @@ import Day03 (solve)
 import Day04 (solve)
 import Day05 (solve)
 import Day06 (solve)
+import Day07 (solve)
 
 testDay :: (Show a1, Show a2, Eq a1, Eq a2)
         => (p -> (a1, a2)) -> a1 -> a2 -> p -> Spec
@@ -114,3 +115,11 @@ main = hspec $ do
     testDay Day06.solve 288 71503
       "Time:      7  15   30\n\
       \Distance:  9  40  200"
+
+  describe "Day 7" $ do
+    testDay Day07.solve 6440 5905
+      "32T3K 765\n\
+      \T55J5 684\n\
+      \KK677 28\n\
+      \KTJJT 220\n\
+      \QQQJA 483"
