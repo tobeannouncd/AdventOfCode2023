@@ -47,9 +47,9 @@ handType xs = case orgByVal xs of
   [] -> FiveOfAKind
   [_] -> FiveOfAKind
   [1,_] -> FourOfAKind
-  [2,_] -> FullHouse
-  [1,1,_] -> ThreeOfAKind
-  [1,2,_] -> TwoPair
+  [_,_] -> FullHouse
+  [_,1,_] -> ThreeOfAKind
+  [_,_,_] -> TwoPair
   [_,_,_,_] -> OnePair
   _ -> HighCard
 
