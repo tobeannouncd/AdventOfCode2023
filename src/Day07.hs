@@ -44,14 +44,14 @@ orgByVal = sort . map length . group . sort
 
 handType :: [Char] -> HandType
 handType xs = case orgByVal xs of
-  [] -> FiveOfAKind
-  [_] -> FiveOfAKind
-  [1,_] -> FourOfAKind
-  [_,_] -> FullHouse
-  [_,1,_] -> ThreeOfAKind
-  [_,_,_] -> TwoPair
+  []        -> FiveOfAKind
+  [_]       -> FiveOfAKind
+  [1,_]     -> FourOfAKind
+  [_,_]     -> FullHouse
+  [_,1,_]   -> ThreeOfAKind
+  [_,_,_]   -> TwoPair
   [_,_,_,_] -> OnePair
-  _ -> HighCard
+  _         -> HighCard
 
 solve :: Text -> Output
 solve input = (scoreOn cmp1 &&& scoreOn cmp2) hands

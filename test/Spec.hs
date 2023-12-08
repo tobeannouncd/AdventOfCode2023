@@ -7,6 +7,7 @@ import Day04 (solve)
 import Day05 (solve)
 import Day06 (solve)
 import Day07 (solve)
+import Day08 (solve)
 
 testDay :: (Show a1, Show a2, Eq a1, Eq a2)
         => (p -> (a1, a2)) -> a1 -> a2 -> p -> Spec
@@ -123,3 +124,25 @@ main = hspec $ do
       \KK677 28\n\
       \KTJJT 220\n\
       \QQQJA 483"
+
+  describe "Day 8" $ do
+    testDay2 Day08.solve 2 6
+      "RL\n\
+      \\n\
+      \AAA = (BBB, CCC)\n\
+      \BBB = (DDD, EEE)\n\
+      \CCC = (ZZZ, GGG)\n\
+      \DDD = (DDD, DDD)\n\
+      \EEE = (EEE, EEE)\n\
+      \GGG = (GGG, GGG)\n\
+      \ZZZ = (ZZZ, ZZZ)"
+        "LR\n\
+        \\n\
+        \11A = (11B, XXX)\n\
+        \11B = (XXX, 11Z)\n\
+        \11Z = (11B, XXX)\n\
+        \22A = (22B, XXX)\n\
+        \22B = (22C, 22C)\n\
+        \22C = (22Z, 22Z)\n\
+        \22Z = (22B, 22B)\n\
+        \XXX = (XXX, XXX)"
