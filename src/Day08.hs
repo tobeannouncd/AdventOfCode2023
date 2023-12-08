@@ -5,12 +5,12 @@ import Data.Map (Map)
 import qualified Data.Map as M
 import Utils (paragraphs)
 import TextParsing
-    ( Parser, char, (<|>), satisfy, string, many1, parse )
+    ( Parser, char, (<|>), string, many1, parse, anyChar )
 import Data.Either (fromRight)
 import qualified Data.Text as T
-import Data.Char (isAlphaNum)
 import Data.List (elemIndex, unfoldr, findIndex)
 import Data.Maybe (fromJust)
+import Control.Monad (replicateM)
 
 type Output = (Int,Int)
 
@@ -31,10 +31,11 @@ parseLoc :: Text -> (String, (String, String))
 parseLoc line = fromRight undefined $ parse p "" line
   where
     p = do
-      k <- many1 (satisfy isAlphaNum) <* string " = ("
-      l <- many1 (satisfy isAlphaNum) <* string ", "
-      r <- many1 (satisfy isAlphaNum)
+      k <- loc <* string " = ("
+      l <- loc <* string ", "
+      r <- loc
       return (k, (l, r))
+    loc = replicateM 3 anyChar
 
 solve :: Text -> Output
 solve inp = (part1 dirs guide, part2 dirs guide)
