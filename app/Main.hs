@@ -19,6 +19,10 @@ import Day05 (solve)
 import Day06 (solve)
 import Day07 (solve)
 import Day08 (solve)
+import Day09 (solve)
+import Day10 (solve)
+import Day11 (solve)
+import Day12 (solve)
 
 solveFuncs :: [Text -> (String, String)]
 solveFuncs =
@@ -29,7 +33,11 @@ solveFuncs =
     showBoth . Day05.solve,
     showBoth . Day06.solve,
     showBoth . Day07.solve,
-    showBoth . Day08.solve ]
+    showBoth . Day08.solve,
+    showBoth . Day09.solve,
+    showBoth . Day10.solve,
+    showBoth . Day11.solve,
+    showBoth . Day12.solve ]
 
 showBoth :: (Show a1, Show a2, Typeable a1, Typeable a2)
          => (a1, a2) -> (String, String)

@@ -4,12 +4,12 @@ module Utils
   where
 
 import qualified Data.Text as T
-import Data.Text.Read (decimal)
+import Data.Text.Read (decimal, signed)
 
 readInts :: Integral a => T.Text -> [a]
 readInts t
   | T.null t = []
-  | otherwise = case decimal t of
+  | otherwise = case signed decimal t of
       Left _        -> readInts (T.tail t)
       Right (n, t') -> n : readInts t'
 
