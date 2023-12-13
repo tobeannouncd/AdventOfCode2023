@@ -16,7 +16,7 @@ solve inp = (part1, part2)
     part1 = sum [ways g s | (s,g) <- inputs]
     part2 = sum [ways (concat $ replicate 5 g) (unfoldSprings s) | (s,g) <- inputs]
 
-ways :: (Eq a, Num a) => [a] -> [Char] -> Int
+ways :: [Int] -> [Char] -> Int
 ways groups springs = answer ! (0,0)
   where
     nGroups = length groups
