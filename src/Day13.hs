@@ -25,7 +25,8 @@ findMirror :: Eq b => Int -> [[b]] -> Int
 findMirror n = (\(a,b) -> 100*a+b) . (go [] &&& go [] . transpose)
   where
     go acc (x:y:xs)
-      | hamming x y <= n, sum (zipWith hamming (x:acc) (y:xs)) == n = length (x:acc)
+      | hamming x y <= n,
+        sum (zipWith hamming (x:acc) (y:xs)) == n = length (x:acc)
     go acc (x:xs) = go (x:acc) xs
     go _ _ = 0
 

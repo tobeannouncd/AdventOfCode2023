@@ -1,12 +1,12 @@
 module Day14 (solve) where
 
-import Data.Text (Text, unpack)
 import Control.Arrow ((&&&))
-import Data.List ( transpose, sort, groupBy, elemIndices )
 import Data.Function (on)
-import qualified Data.Set as S
+import Data.List (findIndices, groupBy, sort, transpose)
+import Data.Set qualified as S
+import Data.Text (Text, unpack)
 
-type Output = (Int,Int)
+type Output = (Int, Int)
 
 solve :: Text -> Output
 solve = (part1 &&& part2) . lines . unpack
@@ -33,21 +33,25 @@ shift :: [Char] -> [Char]
 shift = concatMap sort . groupBy ((==) `on` (== '#'))
 
 load :: [[Char]] -> Int
-load = snd . foldr f (1,0)
+load = snd . foldr f (1, 0)
   where
-    f xs (i,acc) = (i+1, acc + i * length (filter (== 'O') xs))
+    f xs (i, acc) = (i + 1, acc + i * length (filter (== 'O') xs))
 
 spin :: [[Char]] -> [[Char]]
 spin = east . south . west . north
 
-indexCycle :: Ord a => Int -> [a] -> a
-indexCycle n arr = go S.empty n arr
+indexCycle :: (Ord a) => Int -> [a] -> a
+indexCycle = indexCycleBy id
+
+indexCycleBy :: (Ord b) => (a -> b) -> Int -> [a] -> a
+indexCycleBy repr n arr = go S.empty n arr
   where
     go _ _ [] = error "index too large"
-    go _ 0 (x:_) = x
-    go seen i (x:xs)
-      | x `S.member` seen, (a:b:_) <- elemIndices x arr =
+    go _ 0 (x : _) = x
+    go seen i (x : xs)
+      | repr x `S.member` seen,
+        (a : b : _) <- findIndices (\y -> repr y == repr x) arr =
           let cycleLen = b - a
               j = a + i `mod` cycleLen
-          in arr !! j
-      | otherwise = go (S.insert x seen) (i-1) xs
+           in arr !! j
+      | otherwise = go (S.insert (repr x) seen) (i - 1) xs
