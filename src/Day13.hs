@@ -22,13 +22,12 @@ part2 :: [[[Char]]] -> Int
 part2 = sum . map (findMirror 1)
 
 findMirror :: Eq b => Int -> [[b]] -> Int
-findMirror n = (\(a,b) -> 100*a+b) . (findMirror' n [] &&& findMirror' n [] . transpose)
+findMirror n = (\(a,b) -> 100*a+b) . (go [] &&& go [] . transpose)
+  where
+    go acc (x:y:xs)
+      | hamming x y <= n, sum (zipWith hamming (x:acc) (y:xs)) == n = length (x:acc)
+    go acc (x:xs) = go (x:acc) xs
+    go _ _ = 0
 
 hamming :: Eq b => [b] -> [b] -> Int
 hamming xs = length . filter id . zipWith (/=) xs
-
-findMirror' :: Eq b => Int -> [[b]] -> [[b]] -> Int
-findMirror' n acc (x:y:xs)
-  | hamming x y <= n, sum (zipWith hamming (x:acc) (y:xs)) == n = length (x:acc)
-findMirror' n acc (x:xs) = findMirror' n (x:acc) xs
-findMirror' _ _ _ = 0
