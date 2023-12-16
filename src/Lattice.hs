@@ -1,27 +1,5 @@
-module Lattice
-  ( Pt(..)
-  , origin
-  , north
-  , south
-  , west
-  , east
-  , ptRow
-  , ptCol
-  , above
-  , below
-  , left
-  , right
-  , cardinal
-  , adjacent
-  , manhattan
-  , ptLines
-  , invert
-  , invert'
-  , turnLeft
-  , turnRight
-  , turnAround
-  , boundingBox
-  )  where
+{-# OPTIONS_GHC -Wno-missing-export-lists #-}
+module Lattice where
 import GHC.Generics (Generic)
 import Data.Data (Data)
 import Data.Foldable (Foldable(toList))
@@ -47,9 +25,11 @@ ptLines :: String -> [(Pt,Char)]
 ptLines str = [(Pt y x,val) | (y,row) <- zip [0..] (lines str)
                             , (x,val) <- zip [0..] row]
 
+-- | Swaps the x and y coordinates
 invert :: Pt -> Pt
 invert (Pt y x) = Pt x y
 
+-- | Swaps and negates the x and y coordinates
 invert' :: Pt -> Pt
 invert' (Pt y x) = Pt (-x) (-y)
 

@@ -39,6 +39,8 @@ library
       Day12
       Day13
       Day14
+      Day15
+      Day16
       DayXX
       Lattice
       TextParsing
@@ -53,6 +55,8 @@ library
     , base >=4.7 && <5
     , containers
     , fingertree
+    , mtl
+    , ordered-containers
     , parsec
     , text
   default-language: GHC2021
@@ -71,6 +75,8 @@ executable aoc23-exe
     , base >=4.7 && <5
     , containers
     , fingertree
+    , mtl
+    , ordered-containers
     , parsec
     , text
     , time
@@ -92,6 +98,8 @@ test-suite aoc23-test
     , containers
     , fingertree
     , hspec
+    , mtl
+    , ordered-containers
     , parsec
     , text
   default-language: GHC2021

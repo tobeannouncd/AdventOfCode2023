@@ -43,7 +43,7 @@ solve inp = (part1 dirs guide, part2 dirs guide)
     (dirs, guide) = parseInp inp
 
 part1 :: [Direction] -> Guide -> Int
-part1 dirs guide = pathLenBy (elemIndex "ZZZ") dirs guide "AAA"
+part1 dirs = flip (pathLenBy (elemIndex "ZZZ") dirs) "AAA"
 
 
 part2 :: [Direction] -> Guide -> Int

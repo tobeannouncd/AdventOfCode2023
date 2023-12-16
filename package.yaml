@@ -26,6 +26,8 @@ dependencies:
 - parsec
 - array
 - fingertree
+- mtl
+- ordered-containers
 
 language: GHC2021
 

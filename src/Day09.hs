@@ -1,27 +1,18 @@
 module Day09 (solve) where
 
+import Control.Arrow ((&&&))
 import Data.Text (Text)
-import qualified Data.Text as T
-import Utils ( readInts )
+import Data.Text qualified as T
+import Utils (readInts)
 
-type Output = (Integer,Integer)
+type Output = (Int, Int)
 
 solve :: Text -> Output
-solve input = (sum (map extrapolate vals), sum (map extrapLeft vals))
-  where
-    vals = map readInts (T.lines input)
+solve = (sum . map (extrapWith last) &&& sum . map (extrapWith head)) . map readInts . T.lines
 
-extrapolate :: [Integer] -> Integer
-extrapolate xs
-  | all (==0) xs = 0
-  | otherwise = last xs + extrapolate xs'
-  where
-    xs' = zipWith (-) (tail xs) xs
-
-
-extrapLeft :: [Integer]  -> Integer
-extrapLeft xs
-  | all (==0) xs = 0
-  | otherwise = head xs - extrapLeft xs'
+extrapWith :: (Num a, Eq a) => ([a] -> a) -> [a] -> a
+extrapWith f xs
+  | all (== 0) xs = 0
+  | otherwise = f xs - extrapWith f xs'
   where
     xs' = zipWith (-) (tail xs) xs
